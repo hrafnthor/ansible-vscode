@@ -1,0 +1,18 @@
+
+# This url points to the latest version of VSCode for Linux, and is used
+# when no specific version number is requested.
+#
+# See more: https://code.visualstudio.com/docs/setup/linux
+vscode_client_download_latest_url: "https://go.microsoft.com/fwlink/?LinkID=760868"
+
+# These three values are combined along with the requested version number
+# when downloading a client.
+#
+# See more:
+# https://code.visualstudio.com/docs/supporting/faq#_previous-release-versions
+vscode_client_download_url_host: "https://update.code.visualstudio.com"
+vscode_client_architecture: "linux-deb-x64"
+vscode_client_release: "stable"
+
+# The path to where the client will be downloaded to
+vscode_client_download_path: "/tmp"

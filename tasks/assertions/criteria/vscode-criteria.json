@@ -1,0 +1,36 @@
+{
+    "title": "vscode",
+    "descriptions": "schema for vscode installation",
+    "type": "object",
+    "properties":
+    {
+        "gather_facts":
+        {
+            "type": "boolean"
+        },
+        "version":
+        {
+            "$ref": "#/definitions/non-empty-string"
+        },
+        "checksum":
+        {
+            "$ref": "#/definitions/non-empty-string"
+        },
+        "cleanup":
+        {
+            "type": "boolean"
+        }
+    },
+    "required":
+    [
+        "checksum"
+    ],
+    "definitions":
+    {
+        "non-empty-string":
+        {
+            "type": "string",
+            "minLength": 1
+        }
+    }
+}

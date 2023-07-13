@@ -1,0 +1,7 @@
+- name: assert | vscode | assert input config
+  ansible.utils.validate:
+    data: "{{ vscode }}"
+    criteria: "{{ lookup('ansible.builtin.file', './criteria/vscode-criteria.json') | from_json }}"
+    engine: ansible.utils.jsonschema
+  when:
+  - vscode is defined

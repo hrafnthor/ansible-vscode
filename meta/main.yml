@@ -1,0 +1,7 @@
+galaxy_info:
+  author: Hrafn Thorvaldsson
+  description: A role for installing Microsoft Visual Studio Code on Debian based systems.
+
+  license: MIT
+  min_ansible_version: 2.1
+  galaxy_tags: [microsoft,vscode,visual studio code,debian]
