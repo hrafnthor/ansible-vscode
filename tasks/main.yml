@@ -51,6 +51,6 @@
         path: "{{ vscode_installer_path }}"
         state: absent
       when:
-        - vscode.skip_cleanup is not defined or vscode.skip_cleanup
+        - vscode.cleanup is not defined or vscode.cleanup
   when:
     - "'code' not in ansible_facts.packages"

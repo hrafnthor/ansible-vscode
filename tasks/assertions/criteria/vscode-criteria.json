@@ -28,7 +28,7 @@
                 "sha256"
             ]
         },
-        "skip_cleanup":
+        "cleanup":
         {
             "type": "boolean"
         }
