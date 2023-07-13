@@ -7,8 +7,7 @@
   ansible.builtin.package_facts:
     manager: "auto"
   when:
-    - vscode.gather_facts is defined
-    - vscode.gather_facts
+    - vscode.gather_facts is not defined or vscode.gather_facts
 
 - name: software | vscode | download and install
   block:
