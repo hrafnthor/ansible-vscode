@@ -15,4 +15,4 @@ vscode_client_architecture: "linux-deb-x64"
 vscode_client_release: "stable"
 
 # The path to where the client will be downloaded to
-vscode_client_download_path: "/tmp/"
+vscode_client_download_path: "/tmp"
