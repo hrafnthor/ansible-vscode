@@ -46,6 +46,11 @@
     when:
       - vscode.version is defined
 
+  - name: software | vscode | install debian package
+    become: true
+    ansible.builtin.apt:
+      deb: "{{ vscode_installer_path }}"
+
   always:
     - name: software | vscode | cleanup downloaded artifact
       ansible.builtin.file:
