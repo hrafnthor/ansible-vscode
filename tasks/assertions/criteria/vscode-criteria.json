@@ -10,29 +10,21 @@
         },
         "version":
         {
-            "type": "object",
-            "properties":
-            {
-                "name":
-                {
-                    "$ref": "#/definitions/non-empty-string"
-                },
-                "sha256":
-                {
-                    "$ref": "#/definitions/non-empty-string"
-                }
-            },
-            "required":
-            [
-                "name",
-                "sha256"
-            ]
+            "$ref": "#/definitions/non-empty-string"
+        },
+        "checksum":
+        {
+            "$ref": "#/definitions/non-empty-string"
         },
         "cleanup":
         {
             "type": "boolean"
         }
     },
+    "required":
+    [
+        "checksum"
+    ],
     "definitions":
     {
         "non-empty-string":

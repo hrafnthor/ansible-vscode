@@ -32,6 +32,7 @@
     ansible.builtin.get_url:
       url: "{{ vscode_client_download_latest_url }}"
       dest: "{{ vscode_installer_path }}"
+      checksum: "sha256: {{ vscode.checksum }}"
     register: client_download_state
     when:
       - vscode.version is not defined
@@ -40,6 +41,7 @@
     ansible.builtin.get_url:
       url: "{{ ( vscode_client_download_url_host + '/' +  vscode.version.name + '/' + vscode_client_architecture + '/' + vscode_client_release  ) }}"
       dest: "{{ vscode_installer_path }}"
+      checksum: "sha256: {{ vscode.checksum }}"
     register: client_download_state
     when:
       - vscode.version is defined
