@@ -1,0 +1,50 @@
+- name: assert | vscode | assert required inputs
+  ansible.builtin.import_tasks: assertions/assert.yml
+  run_once: yes
+  delegate_to: localhost
+
+- name: software | vscode | gather package facts
+  ansible.builtin.package_facts:
+    manager: "auto"
+  when:
+    - vscode.gather_facts is defined
+    - vscode.gather_facts
+
+- name: software | vscode | download and install
+  block:
+
+  - name: software | vscode | set latest installer name
+    ansible.builtin.set_fact:
+      vscode_client_name: "vscode_latest.deb"
+    when:
+      - vscode.version is not defined
+
+  - name: software | vscode | set version specific installer name
+    ansible.builtin.set_fact:
+      vscode_client_name: "{{ ( 'vscode_' + vscode.version.name  '.deb' ) }}"
+    when:
+      - vscode.version is defined
+
+  - name: software | vscode | set installer destination path
+    ansible.builtin.set_fact:
+      vscode_installer_path: "{{ ( vscode_client_download_path + '/' + vscode_client_name ) }}"
+    when:
+      - vscode.version is defined
+
+  - name: software | vscode | download specific version
+    ansible.builtin.get_url:
+      url: "{{ ( vscode_client_download_url_host + '/' +  vscode.version.name + '/' + vscode_client_architecture + '/' + vscode_client_release  ) }}"
+      dest: "{{ vscode_installer_path }}"
+    register: client_download_state
+    when:
+      - vscode.version is defined
+
+  always:
+    - name: software | vscode | cleanup downloaded artifact
+      ansible.builtin.file:
+        path: "{{ vscode_installer_path }}"
+        state: absent
+      when:
+        - vscode.skip_cleanup is not defined or vscode.skip_cleanup
+  when:
+    - "'code' not in ansible_facts.packages"
