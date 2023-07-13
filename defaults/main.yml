@@ -3,7 +3,7 @@
 # when no specific version number is requested.
 #
 # See more: https://code.visualstudio.com/docs/setup/linux
-vscode_latest_url: "https://go.microsoft.com/fwlink/?LinkID=760868"
+vscode_client_download_latest_url: "https://go.microsoft.com/fwlink/?LinkID=760868"
 
 # These three values are combined along with the requested version number
 # when downloading a client.

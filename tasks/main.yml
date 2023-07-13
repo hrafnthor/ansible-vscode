@@ -28,8 +28,14 @@
   - name: software | vscode | set installer destination path
     ansible.builtin.set_fact:
       vscode_installer_path: "{{ ( vscode_client_download_path + '/' + vscode_client_name ) }}"
+
+  - name: software | vscode | download latest version
+    ansible.builtin.get_url:
+      url: "{{ vscode_client_download_latest_url }}"
+      dest: "{{ vscode_installer_path }}"
+    register: client_download_state
     when:
-      - vscode.version is defined
+      - vscode.version is not defined
 
   - name: software | vscode | download specific version
     ansible.builtin.get_url:
