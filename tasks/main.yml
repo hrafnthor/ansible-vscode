@@ -20,7 +20,7 @@
 
   - name: software | vscode | set version specific installer name
     ansible.builtin.set_fact:
-      vscode_client_name: "{{ ( 'vscode_' + vscode.version.name  '.deb' ) }}"
+      vscode_client_name: "{{ ( 'vscode_' + vscode.version  '.deb' ) }}"
     when:
       - vscode.version is defined
 
