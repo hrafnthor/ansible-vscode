@@ -1,12 +1,10 @@
-ansible-vscode
-=========
+# Ansible VSCode
 
-Ansible role for fetching and installing Visual Studio Code
+An Ansible role for fetching and installing Visual Studio Code.
 
 Will only run if it can not find the program `code` on the path.
 
-Requirements / Dependencies
-------------
+## Requirements
 
 This role requires the python package `jsonschema` to be installed on the system.
 
@@ -14,8 +12,7 @@ This role requires the python package `jsonschema` to be installed on the system
 pip install jsonschema
 ```
 
-Setup
------
+## Setup
 
 Before the role can be used it needs to be added to the machine running the playbook, and as of writing this, this role is not hosted on Ansible-Galaxy only on Github.
 
@@ -27,6 +24,7 @@ Before the role can be used it needs to be added to the machine running the play
 - name: hth-microsoft-vscode
   src: https://github.com/hrafnthor/ansible-vscode.git
   scm: git
+  version: "0.0.3"
 ````
 
 3. Install the requirements by executing
@@ -38,8 +36,7 @@ ansible-galaxy install -r .requirements.yml
 This will allow any playbook run from this machine to use the role hth-microsoft-vscode
 
 
-Role Variables
---------------
+## Role Variables
 
 #### Default variables
 
@@ -78,20 +75,23 @@ The local path to where the client installer will be downloaded. Defaults to `/t
 
 #### Input variables
 
+All variables are optional unless otherwise stated.
+
 ```yml
 vscode:
-  # Indicates if task should gather facts or leave that to parent playbook. Defaults to yes
-  # This parameter is optional.
-  gather_facts: [boolean]
-  # Indicates if the task should cleanup downloaded artifacts after use or leave them. Defaults to yes.
-  # This parameter is optional
-  cleanup: [boolean]
-  # The sha256 checksum of the artifact being downloaded. See instructions below on how to find it.
-  # This parameter is required.
-  checksum: [non empty string]
-  # The version name of the artifact to download. If not supplied then the latest client will be downloaded.
-  # This parameter is optional.
-  version: '1.80.0'
+  gather_facts: [boolean]  Indicates if task should gather facts or leave that to parent playbook. Defaults to yes.
+  remove: [boolean] Indicates if VSCode should be removed from the system. Defaults to false.
+  version: [string] The client version to download (for example '1.92.2')
+  checksum: [non empty string] The checksum for the version artifact. See below on how to find that information.
+```
+
+##### Example
+
+```yaml
+vscode:
+  gather_facts: false
+  version: "1.96.2"
+  checksum: "ff58dfdb0e5674d8e42e1f3907be75a36587b1ca45e586ac06353e97869474e7"
 ```
 
 #### Checksum
@@ -109,9 +109,9 @@ To get the checksum for the client being downloaded, simply query `https://updat
     "sha256hash": "3fbc0fd2bf960fc495950e406ba24ee800c047156d1e88885239655e922e15a7"
 }
 ```
-<sup><sub>
+<sup>
 	Result from querying https://update.code.visualstudio.com/api/versions/1.80.0/linux-deb-x64/stable
-</sub></sup>
+</sup>
 
 
 License
