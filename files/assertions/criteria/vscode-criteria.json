@@ -16,14 +16,26 @@
         {
             "$ref": "#/definitions/non-empty-string"
         },
-        "cleanup":
+        "remove":
         {
             "type": "boolean"
         }
     },
-    "required":
+    "oneOf":
     [
-        "checksum"
+        {
+            "required":
+            [
+                "version",
+                "checksum"
+            ]
+        },
+        {
+            "required":
+            [
+                "remove"
+            ]
+        }
     ],
     "definitions":
     {

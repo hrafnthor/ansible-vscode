@@ -1,0 +1,34 @@
+- name: "VSCode | Download and install client"
+  block:
+
+  - name: "VSCode | Download | Set client artifact name"
+    ansible.builtin.set_fact:
+      vscode_client_name: "{{ ( 'vscode_' + vscode.version + '.deb' ) }}"
+
+  - name: "VSCode | Download | Set artifact download path"
+    ansible.builtin.set_fact:
+      vscode_download_path: "/tmp/{{ vscode_client_name }}"
+
+  - name: "VSCode | Download | Set artifact remote url"
+    ansible.builtin.set_fact:
+        vscode_artifact_url: "{{ ( vscode_client_download_url_host + '/' +  vscode.version + '/' + vscode_client_architecture + '/' + vscode_client_release  ) }}"
+
+  - name: "VSCode | Download | Download debian artifact"
+    ansible.builtin.get_url:
+      url: "{{ vscode_artifact_url }}"
+      dest: "{{ vscode_download_path }}"
+      checksum: "sha256: {{ vscode.checksum }}"
+    register: client_download_state
+
+
+  - name: "VSCode | Install | Install debian package"
+    become: true
+    ansible.builtin.apt:
+      deb: "{{ vscode_download_path }}"
+
+  always:
+
+    - name: "VSCode | Download | Cleanup downloaded artifact"
+      ansible.builtin.file:
+        path: "{{ vscode_download_path }}"
+        state: absent
